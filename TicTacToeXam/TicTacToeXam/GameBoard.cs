@@ -101,6 +101,23 @@ namespace TicTacToeXam {
         {
             Text = "Press Switch On for Single Player Mode"
         };
+        static Color backGroundColor = Device.OnPlatform<Color>(
+            Color.Green,
+            Color.Green,
+            Color.Green);
+        static double buttonHeight = Device.OnPlatform<double>
+          (
+            50, // iOS
+            50, // Android
+            80  // Windows Phone
+
+         );
+
+        static Color textColor = Device.OnPlatform<Color>(
+               Color.Black,
+               Color.Black,
+               Color.Black
+            );
         Switch playerModeSwitch = new Switch
         {
             HorizontalOptions = LayoutOptions.Start,
@@ -115,49 +132,96 @@ namespace TicTacToeXam {
             HorizontalOptions = LayoutOptions.Start,
             VerticalOptions = LayoutOptions.Center
         };
+       
         Button returnButton = new Button
         {
-            Text = "Return to Top"
+        
+            Text = "Return to Top",
+            Style = new Style(typeof(Button))
+            {
+                Setters = {
+                  new Setter {Property = Button.BackgroundColorProperty, Value = backGroundColor },
+                  new Setter {Property = Button.BorderRadiusProperty, Value = 0},
+                  new Setter {Property = Button.HeightRequestProperty, Value = buttonHeight},
+                  new Setter {Property = Button.TextColorProperty, Value = textColor }
+                }
+            }
         };
         Button ticButtonUpperLeft = new Button
         {
-            Text = "UL"
+            Text = "UL",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonUpperMiddle = new Button
         {
-            Text = "UM"
+            Text = "UM",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonUpperRight = new Button
         {
-            Text = "UR"
+            Text = "UR",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonCenterLeft = new Button
         {
-            Text = "CL"
+            Text = "CL",
+            WidthRequest = 100,
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black
         };
         Button ticButtonCenterMiddle = new Button
         {
-            Text = "CM"
+            Text = "CM",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonCenterRight = new Button
         {
-            Text = "CR"
+            Text = "CR",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonBottomLeft = new Button
         {
-            Text = "BL"
+            Text = "BL",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonBottomMiddle = new Button
         {
-            Text = "BM"
+            Text = "BM",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button ticButtonBottomRight = new Button
         {
-            Text = "BR"
+            Text = "BR",
+            BackgroundColor = Color.Yellow,
+            TextColor = Color.Black,
+            WidthRequest = 100
         };
         Button resetGame = new Button
         {
-            Text = "Reset Game"
+            Text = "Reset Game",
+            Style = new Style(typeof(Button))
+            {
+                Setters = {
+                  new Setter {Property = Button.BackgroundColorProperty, Value = backGroundColor},
+                  new Setter {Property = Button.BorderRadiusProperty, Value = 0},
+                  new Setter {Property = Button.HeightRequestProperty, Value = buttonHeight},
+                  new Setter {Property = Button.TextColorProperty, Value = textColor }
+                }
+            }
         };
         Grid gameGrid = new Grid
         {
@@ -1029,11 +1093,22 @@ namespace TicTacToeXam {
                     new Label { Text = "GameBoard Page" },
                     returnButton,
                     gameGrid,
-                    playModeLabel,
-                    playerModeSwitch,
+                    new StackLayout{
+                        Orientation = StackOrientation.Horizontal,
+                        Children =
+                        {
+                            playModeLabel,
+                            playerModeSwitch,
+                        }
+                    },
                     resetGame,
-                    difficultPlayLabel,
-                    difficultModeSwitch
+                    new StackLayout {
+                        Orientation = StackOrientation.Horizontal,
+                        Children = {
+                          difficultPlayLabel,
+                          difficultModeSwitch
+                        }
+                    }
                 }
             };
             returnButton.Clicked += OnReturnButtonClicked;
